@@ -1,8 +1,8 @@
 import React from 'react'
-// import {observer} from 'mobx-react'
-// import {useStores} from '../stores/index'
+import {useStores} from '../stores/index'
 import {Form, Input, Button} from 'antd'
 import styled from 'styled-components'
+import { useHistory } from 'react-router-dom'
 
 const Wrapper = styled.div`
   max-width: 600px;
@@ -32,25 +32,23 @@ const tailLayout = {
 }
 
 const Login = () => {
+  const history = useHistory();
+  const { AuthStore } = useStores()
   const onFinish = (values) => {
-    console.log('Success:', values)
+    AuthStore.setUsername(values.username)
+    AuthStore.setPassword(values.password)
+    AuthStore.login()
+      .then(()=>{
+        history.push('/')
+      })
+      .catch((e)=>{
+        console.log(e)
+        console.log('登录失败，什么都不做')
+      })
   }
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo)
-  }
-
-  const validates = {
-    username: (rule,value,callback) => {
-      if(value.length < 4 || value.length > 8) callback('用户名长度只能为4~8个字符');
-      if(!(/^[0-9a-zA-Z_]+$/.test(value))) callback('用户名只能由数字、字母和下划线组成')
-      callback();
-    },
-    password: (rule, value, callback) => {
-      if(value.length < 6) callback('密码最小长度为6');
-      if(value.length > 16) callback('密码最大长度为16');
-      callback();
-    }
   }
 
   return (
@@ -72,8 +70,7 @@ const Login = () => {
             {
               required: true,
               message: '请输入用户名！',
-            },
-            {validator: validates.username}
+            }
           ]}
         >
           <Input/>
@@ -86,8 +83,7 @@ const Login = () => {
             {
               required: true,
               message: '请输入密码！',
-            },
-            {validator: validates.password}
+            }
           ]}
         >
           <Input.Password/>

@@ -1,8 +1,10 @@
 import React from 'react'
 import Logo from "./logo.svg"
-import {NavLink} from 'react-router-dom'
+import {NavLink, useHistory} from 'react-router-dom'
 import styled from 'styled-components'
 import {Button} from 'antd'
+import { useStores } from '../stores'
+import {observer} from 'mobx-react'
 
 const HeaderWrapper = styled.header`
   display: flex;
@@ -32,13 +34,29 @@ const LinkWrapper = styled(NavLink)`
 
 const Login = styled.div`
   margin-left: auto;
+  color: white;
 `;
 
 const ButtonWrapper = styled(Button)`
   margin-left: 10px;
 `;
 
-function Header() {
+const  Header = observer(() => {
+  const history = useHistory();
+  const { UserStore, AuthStore } = useStores()
+
+  const handleLogout = () => {
+    AuthStore.logout()
+  }
+
+  const handleLogin = () => {
+    history.push('/login')
+  }
+
+  const handleRegister = () => {
+    history.push('/register')
+  }
+
   return (
     <HeaderWrapper>
       <Image src={Logo} alt="加载失败"/>
@@ -46,17 +64,23 @@ function Header() {
       <LinkWrapper to="/history" activeClassName="active">历史记录</LinkWrapper>
       <LinkWrapper to="/about" activeClassName="active">关于我</LinkWrapper>
       <Login>
-        <ButtonWrapper type="primary">
-          登录
-          {/*<LinkWrapper to="/login">登录</LinkWrapper>*/}
-        </ButtonWrapper>
-        <ButtonWrapper type="primary">
-          注册
-          {/*<LinkWrapper to="/register">注册</LinkWrapper>*/}
-        </ButtonWrapper>
+        {UserStore.currentUser?
+          <>
+            Hello,{UserStore.currentUser.attributes.username}
+            <ButtonWrapper type="primary" onClick={handleLogout}>注销</ButtonWrapper>
+          </>
+          :
+          <>
+            <ButtonWrapper type="primary" onClick={handleLogin}>
+              登录
+            </ButtonWrapper>
+            <ButtonWrapper type="primary" onClick={handleRegister}>
+              注册
+            </ButtonWrapper>
+          </>}
       </Login>
     </HeaderWrapper>
   )
-}
+})
 
 export {Header}

@@ -1,8 +1,8 @@
 import React from 'react'
-// import {observer} from 'mobx-react'
-// import {useStores} from '../stores/index'
+import {useStores} from '../stores/index'
 import {Form, Input, Button} from 'antd'
 import styled from 'styled-components'
+import { useHistory } from 'react-router-dom'
 
 const Wrapper = styled.div`
   max-width: 600px;
@@ -32,8 +32,18 @@ const tailLayout = {
 }
 
 const Register = () => {
+  const history = useHistory();
+  const { AuthStore } = useStores()
   const onFinish = (values) => {
-    console.log('Success:', values)
+    AuthStore.setUsername(values.username)
+    AuthStore.setPassword(values.password)
+    AuthStore.register()
+      .then(()=>{
+        history.push('/login')
+      })
+      .catch(()=>{
+        console.log('注册失败，什么都不做')
+      })
   }
 
   const onFinishFailed = (errorInfo) => {
@@ -41,15 +51,15 @@ const Register = () => {
   }
 
   const validates = {
-    username: (rule,value,callback) => {
-      if(value.length < 4 || value.length > 8) callback('用户名长度只能为4~8个字符');
-      if(!(/^[0-9a-zA-Z_]+$/.test(value))) callback('用户名只能由数字、字母和下划线组成')
-      callback();
+    username: (rule,value) => {
+      if(value.length < 4 || value.length > 12) return Promise.reject('用户名长度只能为4~12个字符');
+      if(!(/^[0-9a-zA-Z_]+$/.test(value))) return Promise.reject('用户名只能由数字、字母和下划线组成')
+      return Promise.resolve()
     },
-    password: (rule, value, callback) => {
-      if(value.length < 6) callback('密码最小长度为6');
-      if(value.length > 16) callback('密码最大长度为16');
-      callback();
+    password: (rule, value) => {
+      if(value.length < 6) return Promise.reject('密码最小长度为6');
+      if(value.length > 16) return Promise.reject('密码最大长度为16');
+      return Promise.resolve()
     }
   }
 
