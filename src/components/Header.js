@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Logo from "./logo.svg"
 import {NavLink, useHistory} from 'react-router-dom'
 import styled from 'styled-components'
@@ -10,7 +10,7 @@ const HeaderWrapper = styled.header`
   display: flex;
   align-items: center;
   padding: 0 20px;
-  background: #02101f;
+  background: #3b4754;
 `
 
 const Image = styled.img`
@@ -22,13 +22,13 @@ const LinkWrapper = styled(NavLink)`
   color: white;
   padding: 10px 15px;
   &:hover{
-    background: #1890ff;
+    background: #262e37;
     color: white;
   }
   &.active {
     padding: 10px 15px 6px 15px;
-    background: #1890ff;
-    border-bottom: 4px solid #86c2ff;
+    background: #262e37;
+    border-bottom: 4px solid #4a88c7;
   }
 `;
 
@@ -56,6 +56,11 @@ const  Header = observer(() => {
   const handleRegister = () => {
     history.push('/register')
   }
+
+  useEffect(()=>{
+    UserStore.pullUser();
+    // eslint-disable-next-line
+  },[])
 
   return (
     <HeaderWrapper>
