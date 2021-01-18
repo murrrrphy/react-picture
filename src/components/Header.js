@@ -1,22 +1,20 @@
 import React, {useEffect} from 'react'
-import Logo from "./logo.svg"
 import {NavLink, useHistory} from 'react-router-dom'
 import styled from 'styled-components'
 import {Button} from 'antd'
 import { useStores } from '../stores'
 import {observer} from 'mobx-react'
+import Icon from './Icon'
 
 const HeaderWrapper = styled.header`
   display: flex;
   align-items: center;
   padding: 0 20px;
   background: #3b4754;
-`
-
-const Image = styled.img`
-  height: 30px;
-  margin-right: 20px;
-`
+  .icon {
+    fill: #0fc080;
+  }
+`;
 
 const LinkWrapper = styled(NavLink)`
   color: white;
@@ -64,7 +62,7 @@ const  Header = observer(() => {
 
   return (
     <HeaderWrapper>
-      <Image src={Logo} alt="加载失败"/>
+      <Icon name="M"/>
       <LinkWrapper exact to="/" activeClassName="active">首页</LinkWrapper>
       <LinkWrapper to="/history" activeClassName="active">历史记录</LinkWrapper>
       <LinkWrapper to="/about" activeClassName="active">关于我</LinkWrapper>

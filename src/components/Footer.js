@@ -11,7 +11,7 @@ const FooterWrapper = styled.footer`
 function Footer() {
   return (
     <FooterWrapper>
-      <p>Footer</p>
+      <p>感谢使用墨菲图床</p>
     </FooterWrapper>
   )
 }

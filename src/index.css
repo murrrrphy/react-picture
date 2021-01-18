@@ -19,5 +19,10 @@ a{
 
 main {
   flex: 1;
-  padding: 30px 100px;
+  padding: 30px 200px;
+}
+
+.icon {
+  width: 2em;
+  height: 2em;
 }
