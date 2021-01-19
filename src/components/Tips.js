@@ -2,6 +2,7 @@ import React from 'react'
 import {useStores} from '../stores'
 import {observer} from 'mobx-react'
 import styled from 'styled-components'
+import Title from '../components/Title'
 
 const Tips = styled.div`
   background: orange;
@@ -12,10 +13,14 @@ const Tips = styled.div`
 `;
 
 const Component = observer(({children}) => {
-  const {UserStore} = useStores()
+  const {UserStore, ImageStore} = useStores()
   return (
     <div>
-      {UserStore.currentUser ? null : <Tips>{children}</Tips>}
+      {UserStore.currentUser ?
+        (ImageStore.serverFile ? null : <Title>请上传您的图片</Title>)
+        :
+        <Tips>{children}</Tips>
+      }
     </div>
   )
 })

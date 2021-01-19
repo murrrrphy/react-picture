@@ -1,10 +1,11 @@
 import React from 'react';
 import List from '../components/List'
+import Title from '../components/Title'
 
 function History() {
   return (
     <div>
-      <h1>上传历史</h1>
+      <Title>上传历史</Title>
       <List/>
     </div>
   )

@@ -1,11 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Icon from '../components/Icon'
-
-const Title = styled.div`
-  font-size: 40px;
-  font-weight: 500;
-`
+import Title from '../components/Title'
 
 const Green = styled.div`
   border: 1px solid #7ee281;
@@ -17,6 +13,9 @@ const Green = styled.div`
   align-items: center;
   padding: 10px 20px;
   margin: 20px 0;
+  p {
+    margin-bottom: 0;
+  }
   .icon {
     fill: #155724;
     margin-right: 16px;
@@ -30,6 +29,7 @@ const Red = styled.div`
   color: #841c1c;
   font-size: 16px;
   padding: 10px 20px;
+  margin: 20px 0;
 `
 
 const TitleWrapper = styled.div`
@@ -45,14 +45,31 @@ const TitleWrapper = styled.div`
   }
 `
 
+const Blue = styled.div`
+  border: 1px solid #a6cef3;
+  border-radius: 4px;
+  background: #c4e3ff;
+  color: #2b557c;
+  font-size: 16px;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  a {
+    color: #e83e8c;
+  }
+  p {
+    margin-bottom: 0;
+  }
+`
+
 function About() {
   return (
     <div>
       <Title>关于墨菲图床</Title>
-      <hr/>
       <Green>
         <Icon name="smile"/>
-        墨菲免费图床仅供分享图片使用，我们保留随时删除图片并举报上传违规图片者的权利
+        <p>墨菲免费图床仅供分享图片使用，我们保留随时删除图片并举报上传违规图片者的权利</p>
       </Green>
       <Red>
         <TitleWrapper>
@@ -66,6 +83,14 @@ function About() {
           <li>其他违反香港法律的图片</li>
         </ul>
       </Red>
+      <Blue>
+        <p>作者邮箱：<a href="mailto:987127314@qq.com">987127314@qq.com</a></p>
+        <p>GitHub主页：
+          <a target="_blank" rel="noreferrer" href="https://github.com/murrrrphy">
+            https://github.com/murrrrphy
+          </a>
+        </p>
+      </Blue>
     </div>
   )
 }

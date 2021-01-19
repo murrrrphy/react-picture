@@ -16,6 +16,18 @@ const Header = styled.h1`
   text-align: center;
 `;
 
+const P = styled.p`
+  margin-left: 90px;
+  button {
+    border: none;
+    background: #fff;
+    color: #007bff;
+    outline: none;
+    cursor: pointer;
+    padding: 0;
+  }
+`
+
 const layout = {
   labelCol: {
     span: 6,
@@ -49,6 +61,10 @@ const Login = () => {
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo)
+  }
+
+  const handleRegister = () => {
+    history.push('/register')
   }
 
   return (
@@ -88,6 +104,7 @@ const Login = () => {
         >
           <Input.Password/>
         </Form.Item>
+        <P>还没注册？<button onClick={handleRegister}>注册</button></P>
 
         <Form.Item {...tailLayout}>
           <Button type="primary" htmlType="submit">

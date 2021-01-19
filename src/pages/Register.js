@@ -16,6 +16,18 @@ const Header = styled.h1`
   text-align: center;
 `;
 
+const P = styled.p`
+  margin-left: 90px;
+  button {
+    border: none;
+    background: #fff;
+    color: #007bff;
+    outline: none;
+    cursor: pointer;
+    padding: 0;
+  }
+`
+
 const layout = {
   labelCol: {
     span: 6,
@@ -34,6 +46,9 @@ const tailLayout = {
 const Register = () => {
   const history = useHistory();
   const { AuthStore } = useStores()
+  const handleLogin = () => {
+    history.push('/login')
+  }
   const onFinish = (values) => {
     AuthStore.setUsername(values.username)
     AuthStore.setPassword(values.password)
@@ -124,6 +139,7 @@ const Register = () => {
         >
           <Input.Password/>
         </Form.Item>
+        <P>已经有账号？<button onClick={handleLogin}>登录</button></P>
 
         <Form.Item {...tailLayout}>
           <Button type="primary" htmlType="submit">
