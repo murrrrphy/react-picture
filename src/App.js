@@ -1,7 +1,7 @@
 import React, {lazy, Suspense} from 'react'
 import {Loading} from './components/Loading'
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Route,
   Switch,
 } from "react-router-dom";

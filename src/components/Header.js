@@ -13,6 +13,7 @@ const HeaderWrapper = styled.header`
   background: #3b4754;
   .icon {
     fill: #0fc080;
+    margin-right: 20px;
   }
 `;
 
