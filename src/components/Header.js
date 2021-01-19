@@ -45,6 +45,7 @@ const  Header = observer(() => {
 
   const handleLogout = () => {
     AuthStore.logout()
+    history.push('/')
   }
 
   const handleLogin = () => {

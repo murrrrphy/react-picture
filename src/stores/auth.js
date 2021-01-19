@@ -32,7 +32,6 @@ class AuthStore {
         })
         .catch(error => {
           UserStore.resetUser()
-          message.error('登录失败')
           reject(error)
         })
     })

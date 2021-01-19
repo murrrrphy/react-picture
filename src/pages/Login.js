@@ -1,6 +1,6 @@
 import React from 'react'
 import {useStores} from '../stores/index'
-import {Form, Input, Button} from 'antd'
+import {Form, Input, Button, message} from 'antd'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 
@@ -51,11 +51,19 @@ const Login = () => {
     AuthStore.setPassword(values.password)
     AuthStore.login()
       .then(()=>{
+        message.success('登录成功')
         history.push('/')
       })
       .catch((e)=>{
-        console.log(e)
-        console.log('登录失败，什么都不做')
+        if(e.toString().indexOf('The username and password mismatch')>0){
+          message.error('密码错误，登录失败')
+        }else if(e.toString().indexOf('Could not find user')>0){
+          message.error('用户名不存在，请确认用户名或注册账号')
+        }else if(e.toString().indexOf('登录失败次数超过限制')>0){
+          message.error('登录失败次数超过限制，请稍候再试，或者通过忘记密码重设密码。')
+        }else {
+          message.error('发生未知错误，请稍后再试')
+        }
       })
   }
 
