@@ -20,6 +20,6 @@ git commit -m 'deploy'
 # git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
 
 # 部署到 https://<USERNAME>.github.io/<REPO>
-git push -f git@github.com:murrrrphy/react-picture-website.git
+git push -f git@github.com:murrrrphy/react-picture-website.git master
 
 cd -
