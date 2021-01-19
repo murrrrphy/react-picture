@@ -1,57 +1,19 @@
-import React, {useRef} from 'react'
+import React from 'react'
 import {useStores} from '../stores'
-import {observer, useLocalObservable} from 'mobx-react'
+import {observer} from 'mobx-react'
 import {Upload, message, Spin} from 'antd'
 import {InboxOutlined} from '@ant-design/icons'
+import UploaderResult from './UploaderResult'
 import styled from 'styled-components'
 
 const {Dragger} = Upload
 
-const Result = styled.div`
-  margin-top: 30px;
-  border: 1px dashed #ccc;
-  padding: 20px;
-`
-
-const H1 = styled.h1`
-  text-align: center;
-  margin: 20px 0;
-`
-
-const Image = styled.img`
-  max-width: 300px;
-  
+const DraggerWrapper = styled(Dragger)`
+  margin-top: 32px;
 `
 
 const Component = observer(() => {
-  const refWidth = useRef()
-  const refHeight = useRef()
   const {ImageStore, UserStore} = useStores()
-  const store = useLocalObservable(() => ({
-    width: null,
-    setWidth (width){
-      store.width = width
-    },
-    get widthStr() {
-      return store.width ? `/w/${store.width}` : ''
-    },
-    height: null,
-    setHeight (height){
-      store.height = height
-    },
-    get heightStr() {
-      return store.height ? `/h/${store.height}` : ''
-    },
-    get fullStr() {
-      return ImageStore.serverFile.attributes.url.attributes.url + '?imageView2/0' + store.widthStr + store.heightStr
-    }
-  }))
-  const bingWidthChange = () => {
-    store.setWidth(refWidth.current.value)
-  }
-  const bingHeightChange = () => {
-    store.setHeight(refHeight.current.value)
-  }
   const props = {
     showUploadList: false,
     beforeUpload: file => {
@@ -83,7 +45,7 @@ const Component = observer(() => {
   return (
     <div>
       <Spin tip="上传中..." spinning={ImageStore.isLoading}>
-        <Dragger {...props}>
+        <DraggerWrapper {...props}>
           <p className="ant-upload-drag-icon">
             <InboxOutlined/>
           </p>
@@ -91,35 +53,9 @@ const Component = observer(() => {
           <p className="ant-upload-hint">
             仅支持.png/.svg/.jpg/.jpeg/.gif格式的图片
           </p>
-        </Dragger>
+        </DraggerWrapper>
       </Spin>
-      {
-        ImageStore.serverFile ? <Result>
-          <H1>上传结果</H1>
-          <dl>
-            <dt>线上地址</dt>
-            <dd>
-              <a rel="noreferrer" target="_blank" href={ImageStore.serverFile.attributes.url.attributes.url}>
-                {ImageStore.serverFile.attributes.url.attributes.url}
-              </a>
-            </dd>
-            <dt>文件名</dt>
-            <dd>{ImageStore.filename}</dd>
-            <dt>图片预览</dt>
-            <dd>
-              <Image src={ImageStore.serverFile.attributes.url.attributes.url} alt="加载失败"/>
-            </dd>
-            <dt>更多尺寸</dt>
-            <dd>
-              <input ref={refWidth} onChange={bingWidthChange} placeholder="最大宽度(可选)"/>
-              <input ref={refHeight} onChange={bingHeightChange} placeholder="最大高度(可选)"/>
-            </dd>
-            <dd>
-              <a target="_blank" rel="noreferrer" href={store.fullStr}>{store.fullStr}</a>
-            </dd>
-          </dl>
-        </Result> : null
-      }
+      <UploaderResult/>
     </div>
   )
 })
