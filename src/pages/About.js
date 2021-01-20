@@ -78,9 +78,9 @@ function About() {
         </TitleWrapper>
         <ul>
           <li>含有色情、暴力、宣扬恐怖主义的图片</li>
+          <li>带有侮辱性质和歧视性质的图片</li>
           <li>侵犯版权、未经授权的图片</li>
           <li>其他违反中华人民共和国法律的图片</li>
-          <li>其他违反香港法律的图片</li>
         </ul>
       </Red>
       <Blue>

@@ -5,7 +5,8 @@ import styled from 'styled-components'
 import Title from '../components/Title'
 
 const Tips = styled.div`
-  background: orange;
+  text-align: center;
+  background: #f90;
   padding: 10px;
   margin: 30px 0;
   color: #fff;
